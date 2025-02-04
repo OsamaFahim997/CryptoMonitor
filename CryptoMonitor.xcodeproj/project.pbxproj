@@ -18,6 +18,7 @@
 		7AC6647F2D52B5BF00A3D5BD /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6647E2D52B5BF00A3D5BD /* PreviewProvider.swift */; };
 		7AC664822D52B70100A3D5BD /* CoinRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC664812D52B70100A3D5BD /* CoinRowView.swift */; };
 		7AC664842D52BA2700A3D5BD /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC664832D52BA2700A3D5BD /* Double.swift */; };
+		7AC664862D52C57E00A3D5BD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC664852D52C57E00A3D5BD /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		7AC6647E2D52B5BF00A3D5BD /* PreviewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		7AC664812D52B70100A3D5BD /* CoinRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinRowView.swift; sourceTree = "<group>"; };
 		7AC664832D52BA2700A3D5BD /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		7AC664852D52C57E00A3D5BD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,10 +124,19 @@
 		7AC664802D52B6F400A3D5BD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				7AC664872D52C58900A3D5BD /* ViewModel */,
 				7A59E1942D4FD2B70088CE4C /* HomeView.swift */,
 				7AC664812D52B70100A3D5BD /* CoinRowView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		7AC664872D52C58900A3D5BD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7AC664852D52C57E00A3D5BD /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +212,7 @@
 				7AC664822D52B70100A3D5BD /* CoinRowView.swift in Sources */,
 				7A59E1952D4FD2B70088CE4C /* HomeView.swift in Sources */,
 				7A59E1932D4FD2B70088CE4C /* CryptoMonitorApp.swift in Sources */,
+				7AC664862D52C57E00A3D5BD /* HomeViewModel.swift in Sources */,
 				7A59E1AA2D5010880088CE4C /* CircleButtonViewAnimation.swift in Sources */,
 				7A59E1A82D4FE8B90088CE4C /* CircleButtonView.swift in Sources */,
 				7AC664742D5175AD00A3D5BD /* CoinModel.swift in Sources */,
