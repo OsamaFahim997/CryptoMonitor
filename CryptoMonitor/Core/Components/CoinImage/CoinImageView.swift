@@ -12,8 +12,8 @@ struct CoinImageView: View {
     
     @StateObject var vm : CoinImageViewModel
     
-    init(url: String) {
-        _vm = StateObject(wrappedValue: CoinImageViewModel(url: url))
+    init(coin: CoinModel) {
+        _vm = StateObject(wrappedValue: CoinImageViewModel(coin: coin))
     }
     
     var body: some View {
@@ -34,7 +34,7 @@ struct CoinImageView: View {
 }
 
 #Preview {
-    CoinImageView(url: "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400")
+    CoinImageView(coin: DeveloperPreview.instance.coin)
         .padding()
         .previewLayout(.sizeThatFits)
 }
