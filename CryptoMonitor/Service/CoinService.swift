@@ -31,9 +31,4 @@ final class CoinService {
                 self?.coinCancellable?.cancel()
             })
     }
-    
-    func fetchImage() {
-        
-    }
-    
 }

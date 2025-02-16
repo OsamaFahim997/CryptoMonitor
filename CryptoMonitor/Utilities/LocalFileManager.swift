@@ -61,5 +61,4 @@ class LocalFileManager {
         
         return url.appendingPathComponent(imageName + ".png")
     }
-    
 }

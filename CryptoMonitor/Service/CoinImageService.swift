@@ -29,11 +29,9 @@ final class CoinImageService {
     
     func getImage() {
         if let image = localImageManager.getImage(imageName: imageName, folderName: folderName) {
-            print("Find saved image")
             self.image = image
         } else {
             self.downloadImage(from: coinModel.image)
-            print("Downloading images ")
         }
     }
     
@@ -53,5 +51,4 @@ final class CoinImageService {
                 self.localImageManager.saveImage(image: responseImage, imageName: imageName, folderName: folderName)
             })
     }
-    
 }
