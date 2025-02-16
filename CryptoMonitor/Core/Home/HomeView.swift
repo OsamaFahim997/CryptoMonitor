@@ -20,6 +20,8 @@ struct HomeView: View {
             VStack {
                 homeHeader
                 
+                HomeStatView(showPortfolio: self.$showPortfolio)
+                
                 SearchBarView(searchText: $homeViewModel.searchText)
                 
                 columnTitles
