@@ -19,7 +19,7 @@ final class MarketDataService {
         fetchGlobalData()
     }
     
-    private func fetchGlobalData() {
+    func fetchGlobalData() {
         guard let url = URL(string: "https://api.coingecko.com/api/v3/global") else { return }
         
         marketDataCancellable = networkManager.fetchDataFromServer(url: url)

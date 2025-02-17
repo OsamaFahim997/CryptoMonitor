@@ -20,7 +20,7 @@ final class CoinService {
         getCoins()
     }
     
-    private func getCoins() {
+    func getCoins() {
         guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true") else { return }
         
         coinCancellable = networkManager.fetchDataFromServer(url: url)
