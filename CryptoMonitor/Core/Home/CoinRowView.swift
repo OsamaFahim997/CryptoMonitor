@@ -64,10 +64,9 @@ extension CoinRowView {
                     .bold()
                     .foregroundColor(.theme.accent)
                 
-                Text(coin.currentHoldings?.convertPercentageToTwoDecimals() ?? "")
+                Text(coin.currentHoldings?.asCurrencyWith2Decimals() ?? "")
                     .font(.subheadline)
                     .foregroundColor(.theme.accent)
-            
         }
     }
     

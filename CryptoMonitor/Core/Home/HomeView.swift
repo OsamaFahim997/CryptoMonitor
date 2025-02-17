@@ -57,7 +57,7 @@ struct HomeView: View {
     var portfolioCoinsList: some View {
         List {
             ForEach(homeViewModel.portfolioCoins) { coin in
-                CoinRowView(coin: coin, showHoldingsColumn: false)
+                CoinRowView(coin: coin, showHoldingsColumn: showPortfolio)
                     .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
             }
         }

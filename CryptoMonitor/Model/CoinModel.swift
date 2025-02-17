@@ -21,7 +21,7 @@ struct CoinModel: Identifiable, Codable {
     let atlDate: String?
     let lastUpdated: String?
     let sparklineIn7D: SparklineIn7D?
-    let currentHoldings: Double?
+    var currentHoldings: Double?
     
     enum CodingKeys: String, CodingKey {
         case id, symbol, name, image
@@ -57,6 +57,66 @@ struct CoinModel: Identifiable, Codable {
     var rank: Int {
         return Int(marketCapRank ?? 0)
     }
+    
+    func copyWith(
+            id: String? = nil,
+            symbol: String? = nil,
+            name: String? = nil,
+            image: String? = nil,
+            currentPrice: Double? = nil,
+            marketCap: Double? = nil,
+            marketCapRank: Double? = nil,
+            fullyDilutedValuation: Double? = nil,
+            totalVolume: Double? = nil,
+            high24H: Double? = nil,
+            low24H: Double? = nil,
+            priceChange24H: Double? = nil,
+            priceChangePercentage24H: Double? = nil,
+            marketCapChange24H: Double? = nil,
+            marketCapChangePercentage24H: Double? = nil,
+            circulatingSupply: Double? = nil,
+            totalSupply: Double? = nil,
+            maxSupply: Double? = nil,
+            ath: Double? = nil,
+            athChangePercentage: Double? = nil,
+            athDate: String? = nil,
+            atl: Double? = nil,
+            atlChangePercentage: Double? = nil,
+            atlDate: String? = nil,
+            lastUpdated: String? = nil,
+            sparklineIn7D: SparklineIn7D? = nil,
+            currentHoldings: Double? = nil
+        ) -> CoinModel {
+            return CoinModel(
+                id: id ?? self.id,
+                symbol: symbol ?? self.symbol,
+                name: name ?? self.name,
+                image: image ?? self.image,
+                currentPrice: currentPrice ?? self.currentPrice,
+                marketCap: marketCap ?? self.marketCap,
+                marketCapRank: marketCapRank ?? self.marketCapRank,
+                fullyDilutedValuation: fullyDilutedValuation ?? self.fullyDilutedValuation,
+                totalVolume: totalVolume ?? self.totalVolume,
+                high24H: high24H ?? self.high24H,
+                low24H: low24H ?? self.low24H,
+                priceChange24H: priceChange24H ?? self.priceChange24H,
+                priceChangePercentage24H: priceChangePercentage24H ?? self.priceChangePercentage24H,
+                marketCapChange24H: marketCapChange24H ?? self.marketCapChange24H,
+                marketCapChangePercentage24H: marketCapChangePercentage24H ?? self.marketCapChangePercentage24H,
+                circulatingSupply: circulatingSupply ?? self.circulatingSupply,
+                totalSupply: totalSupply ?? self.totalSupply,
+                maxSupply: maxSupply ?? self.maxSupply,
+                ath: ath ?? self.ath,
+                athChangePercentage: athChangePercentage ?? self.athChangePercentage,
+                athDate: athDate ?? self.athDate,
+                atl: atl ?? self.atl,
+                atlChangePercentage: atlChangePercentage ?? self.atlChangePercentage,
+                atlDate: atlDate ?? self.atlDate,
+                lastUpdated: lastUpdated ?? self.lastUpdated,
+                sparklineIn7D: sparklineIn7D ?? self.sparklineIn7D,
+                currentHoldings: currentHoldings ?? self.currentHoldings
+            )
+        }
 }
 
 struct SparklineIn7D: Codable {

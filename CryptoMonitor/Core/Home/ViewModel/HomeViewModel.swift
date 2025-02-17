@@ -17,11 +17,15 @@ class HomeViewModel: ObservableObject {
     
     let coinService: CoinService
     let marketDataService: MarketDataService
+    let profileDataService: ProfileDataService
     var cancellables = Set<AnyCancellable>()
     
-    init(coinService: CoinService = CoinService(allCoins: []), marketDataService: MarketDataService = MarketDataService()) {
+    init(coinService: CoinService = CoinService(allCoins: []), 
+         marketDataService: MarketDataService = MarketDataService(),
+         profileDataService: ProfileDataService = ProfileDataService()) {
         self.coinService = coinService
         self.marketDataService = marketDataService
+        self.profileDataService = profileDataService
         addSubscribers()
     }
     
@@ -45,6 +49,36 @@ class HomeViewModel: ObservableObject {
                 self?.statistics = statsModel
             }
             .store(in: &cancellables)
+        
+        $allCoins
+            .combineLatest(profileDataService.$savedEntites)
+            .map { (allCoin, entities) in
+                var profileCoins = [CoinModel]()
+                for coin in entities {
+                    if let findCoin = allCoin.first(where: {$0.id == coin.id}) {
+                        let updatedCoin = findCoin.copyWith(currentHoldings: coin.amount)
+                        profileCoins.append(updatedCoin)
+                    }
+                }
+                return profileCoins
+            }
+            .sink { [weak self] coins in
+                self?.portfolioCoins = coins
+            }
+            .store(in: &cancellables)
+    }
+    
+    func checkForCurrentHolding(of coin: CoinModel?) -> String {
+        if let coin = coin,
+           let findCoin = portfolioCoins.first(where: {$0.id == coin.id }),
+           findCoin.currentHoldings != nil {
+            return String(findCoin.currentHoldings ?? 0)
+        }
+        return ""
+    }
+    
+    func updatePortfolio(coin: CoinModel, amount: Double) {
+        profileDataService.updatePortfolio(coin: coin, amount: amount)
     }
     
     private func filterCoins(text: String, coins: [CoinModel]) -> [CoinModel] {

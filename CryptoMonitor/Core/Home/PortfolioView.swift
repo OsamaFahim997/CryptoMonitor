@@ -34,6 +34,11 @@ struct PortfolioView: View {
                     trailingNavBarButton
                 }
             })
+            .onChange(of: vm.searchText, { _, newValue in
+                if newValue.isEmpty {
+                    self.removeSelectedCoin()
+                }
+            })
         }
     }
     
@@ -55,14 +60,14 @@ extension PortfolioView {
     private var showCoinListView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
-                ForEach(vm.allCoins) { coin in
+                ForEach(vm.searchText.isEmpty ? vm.portfolioCoins : vm.allCoins) { coin in
                     CoinLogoView(coin: coin)
                         .frame(width: 75)
                         .padding()
                         .onTapGesture {
                             withAnimation(.easeInOut) {
-                                quantityText = ""
                                 selectedCoin = coin
+                                quantityText = vm.checkForCurrentHolding(of: selectedCoin)
                             }
                         }
                         .background(
@@ -122,21 +127,26 @@ extension PortfolioView {
     }
     
     private func saveButtonPressed() {
-        guard let coin = selectedCoin else { return }
+        guard let coin = selectedCoin, let amount = Double(quantityText) else { return }
         
+        // save to portfolio
+        vm.updatePortfolio(coin: coin, amount: amount)
+        
+        // showing animation and removing selected coin
         withAnimation(.easeInOut) {
             showCheckMark = true
             removeSelectedCoin()
         }
         
+        // dismiss keyboard
         UIApplication.shared.endEditing()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+        // removing checkmark after animation
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
             withAnimation(.easeInOut) {
                 showCheckMark = false
             }
         })
-        
     }
     
     private func removeSelectedCoin() {
