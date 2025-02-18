@@ -110,13 +110,44 @@ extension HomeView {
     
     private var columnTitles: some View {
         HStack {
-            Text("Coin")
+            HStack {
+                Text("Coin")
+                Image(systemName: "chevron.down")
+                    .opacity(homeViewModel.sort == .byRank || homeViewModel.sort == .byRankReversed ? 1.0 : 0.0 )
+                    .rotationEffect(Angle(degrees: homeViewModel.sort == .byRank ? 0 : 180))
+            }
+            .onTapGesture {
+                withAnimation(.none) {
+                    toggleSort(sort: .byRank)
+                }
+            }
+            
             Spacer()
             if showPortfolio {
-                Text("Holdings")
+                HStack {
+                    Text("Holdings")
+                    Image(systemName: "chevron.down")
+                        .opacity(homeViewModel.sort == .byHoldings || homeViewModel.sort == .byHoldingsReversed ? 1.0 : 0.0 )
+                        .rotationEffect(Angle(degrees: homeViewModel.sort == .byHoldings ? 0 : 180))
+                }
+                .onTapGesture {
+                    withAnimation(.none) {
+                        toggleSort(sort: .byHoldings)
+                    }
+                }
             }
-            Text("Price")
+            HStack {
+                Text("Price")
+                Image(systemName: "chevron.down")
+                    .opacity(homeViewModel.sort == .byPrice || homeViewModel.sort == .byPriceReversed ? 1.0 : 0.0 )
+                    .rotationEffect(Angle(degrees: homeViewModel.sort == .byPrice ? 0 : 180))
+            }
                 .frame(width: UIScreen.main.bounds.width / 3.5, alignment: .trailing)
+                .onTapGesture {
+                    withAnimation(.none) {
+                        toggleSort(sort: .byPrice)
+                    }
+                }
             
             Button {
                 withAnimation(.linear(duration: 2.0)) {
@@ -131,5 +162,16 @@ extension HomeView {
         .font(.caption)
         .foregroundColor(.theme.secondaryText)
         .padding(.horizontal)
+    }
+    
+    private func toggleSort(sort: HomeViewModel.SortingOption) {
+        switch sort {
+        case .byHoldings, .byHoldingsReversed:
+            homeViewModel.sort = homeViewModel.sort == .byHoldings ? .byHoldingsReversed : .byHoldings
+        case .byPrice, .byPriceReversed:
+            homeViewModel.sort = homeViewModel.sort == .byPrice ? .byPriceReversed : .byPrice
+        case .byRank, .byRankReversed:
+            homeViewModel.sort = homeViewModel.sort == .byRank ? .byRankReversed : .byRank
+        }
     }
 }
