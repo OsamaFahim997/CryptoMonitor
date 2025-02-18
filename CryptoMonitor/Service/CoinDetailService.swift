@@ -13,7 +13,7 @@ final class CoinDetailService {
     @Published var coinDetail: CoinDetailModel? = nil
     private let coin: CoinModel
     private let networkManager: NetworkManager
-    var coinDetailCancellable: AnyCancellable?
+    private var coinDetailCancellable: AnyCancellable?
     
     init(coin: CoinModel, networkManager: NetworkManager = NetworkManager()) {
         self.coin = coin

@@ -7,30 +7,82 @@
 
 import SwiftUI
 
-struct DetailLoadingView: View {
-    
-    @Binding var coin: CoinModel?
-    
-    var body: some View {
-        if let coin = coin {
-            DetailView(coin: coin)
-        }
-    }
-}
-
 struct DetailView: View {
     
     @StateObject private var vm: CoinDetailViewModel
+    let columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     init(coin: CoinModel) {
         self._vm = .init(wrappedValue: .init(coin: coin))
     }
     
     var body: some View {
-        Text("Osama")
+        ScrollView {
+            VStack(spacing: 15) {
+                Text("")
+                    .frame(height: 150)
+                
+                overiewLabel
+                Divider()
+                overviewGrid
+                
+                additionalDetailLabl
+                Divider()
+                additionalDetailGrid
+                
+            }
+            .padding()
+        }
+        .navigationTitle(vm.coin.name.uppercased())
     }
 }
 
 #Preview {
-    DetailView(coin: DeveloperPreview.instance.coin)
+    NavigationView(content: {
+        DetailView(coin: DeveloperPreview.instance.coin)
+    })
+}
+
+extension DetailView {
+    
+    private var overiewLabel: some View {
+        Text("Overview")
+            .font(.title)
+            .bold()
+            .foregroundColor(.theme.accent)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var overviewGrid: some View {
+        LazyVGrid(columns: columns,
+                  alignment: .leading,
+                  spacing: 30,
+                  content: {
+            ForEach(vm.overviewStatistics) { model in
+                StatisticView(stat: model)
+            }
+        })
+    }
+    
+    private var additionalDetailLabl: some View {
+        Text("Additional Details")
+            .font(.title)
+            .bold()
+            .foregroundColor(.theme.accent)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var additionalDetailGrid: some View {
+        LazyVGrid(columns: columns,
+                  alignment: .leading,
+                  spacing: 30,
+                  content: {
+            ForEach(vm.additionalStatistics) { model in
+                StatisticView(stat: model)
+            }
+        })
+    }
 }
