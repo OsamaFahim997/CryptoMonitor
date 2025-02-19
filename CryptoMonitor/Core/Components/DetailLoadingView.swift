@@ -19,5 +19,5 @@ struct DetailLoadingView: View {
 }
 
 #Preview {
-    DetailLoadingView()
+    DetailLoadingView(coin: .constant(DeveloperPreview.instance.coin))
 }

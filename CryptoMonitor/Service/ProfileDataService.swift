@@ -48,7 +48,7 @@ class ProfileDataService {
     }
     
     private func addCoin(coin: CoinModel, amount: Double) {
-        var entity = ProfileEntity(context: container.viewContext)
+        let entity = ProfileEntity(context: container.viewContext)
         entity.id = coin.id
         entity.amount = amount
         

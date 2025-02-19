@@ -17,7 +17,6 @@ class CoinDetailViewModel: ObservableObject {
     private var coinDetailService: CoinDetailService
     private var cancellables = Set<AnyCancellable>()
     
-    
     init(coin: CoinModel) {
         self.coin = coin
         self.coinDetailService = CoinDetailService(coin: coin)
