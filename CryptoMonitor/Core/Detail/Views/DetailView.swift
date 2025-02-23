@@ -10,6 +10,8 @@ import SwiftUI
 struct DetailView: View {
     
     @StateObject private var vm: CoinDetailViewModel
+    @State private var showDescription: Bool = false
+    
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -28,11 +30,14 @@ struct DetailView: View {
                 VStack(spacing: 15) {
                     overiewLabel
                     Divider()
-                    overviewGrid
                     
+                    descriptionSection
+                    overviewGrid
                     additionalDetailLabl
+                    
                     Divider()
                     additionalDetailGrid
+                    websiteSection
                 }
                 .padding()
             }
@@ -62,6 +67,31 @@ extension DetailView {
             
             CoinImageView(coin: vm.coin)
                 .frame(width: 25, height: 25)
+        }
+    }
+    
+    private var descriptionSection: some View {
+        ZStack {
+            if let description = vm.coinDescription, !description.isEmpty {
+                VStack(alignment: .leading) {
+                    Text(description)
+                        .lineLimit(showDescription ? nil : 2)
+                        .font(.callout)
+                        .foregroundColor(.theme.secondaryText)
+                    
+                    Button(action: {
+                        withAnimation(.easeInOut) {
+                            showDescription.toggle()
+                        }
+                    }, label: {
+                        Text(showDescription ? "Less" : "Read more...")
+                            .foregroundColor(.blue)
+                            .font(.caption)
+                    })
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 5)
+            }
         }
     }
     
@@ -101,5 +131,19 @@ extension DetailView {
                 StatisticView(stat: model)
             }
         })
+    }
+    
+    private var websiteSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            if let link = vm.websiteURL, let url = URL(string: link) {
+                Link("Website", destination: url)
+            }
+            if let link = vm.redditURL, let url = URL(string: link) {
+                Link("Reddit", destination: url)
+            }
+        }
+        .accentColor(.blue)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .font(.headline)
     }
 }
